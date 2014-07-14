@@ -1,0 +1,24 @@
+<ivy-module version="2.0">
+	<info organisation="org.jjwsoft" module="org.jjwsoft.common" />
+
+	<configurations>    	
+	</configurations>
+
+	<publications>
+	</publications>	
+	
+	<dependencies>
+		<dependency org="org.apache" name="org.apache.commons.logging" rev="1.1.1" conf="default->default"/>
+		<dependency org="org.apache" name="org.apache.commons.dbcp" rev="1.4.0" conf="default->default" />
+		<dependency org="org.apache" name="org.apache.commons.pool" rev="1.2.0" conf="default->default" />
+		<dependency org="org.slf4j" name="org.slf4j.api" rev="1.6.4" conf="default->default" />
+		<dependency org="org.slf4j" name="org.slf4j.log4j.over.slf4j" rev="1.6.4" conf="default->default"/>
+		<dependency org="ch.qos" name="ch.qos.logback.core" rev="1.0.7" conf="default->default"/>
+		<dependency org="ch.qos" name="ch.qos.logback.classic" rev="1.0.7" conf="default->default"/>
+	
+		<dependency org="net.sourceforge" name="net.sourceforge.jtds" rev="1.2.5" conf="default->default"/>
+		<dependency org="com.oracle" name="oracle.jdbc" rev="10.2.0" conf="default->default"/>
+		
+		<dependency org="org.gnu" name="gnu.getopt" rev="1.0.13" conf="default->default"/>
+	</dependencies>	
+</ivy-module> 

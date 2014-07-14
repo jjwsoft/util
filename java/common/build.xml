@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<project default="release" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property file="build.properties"/>
+    <property environment="env" />
+
+	<tstamp>
+		<format property="build.time" pattern="yyyy-MM-dd HH:mm:ss" />
+		<format property="package.time" pattern="yyMMdd" />
+  	</tstamp>
+
+	<path id="reference.lib">
+		<fileset dir="${ivy.retrieve.lib.dir}"/>
+	</path>
+
+	<target name="resolve">
+		<ivy:retrieve pattern="${ivy.retrieve.lib.dir}/[conf]/[artifact].[ext]"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="${output..}"/>
+		<delete dir="${module.dist.dir}"/>
+		<delete dir="${ivy.retrieve.lib.dir}"/>
+	</target>
+
+	<target name="compile" depends="resolve">
+		<mkdir dir="${output..}" />
+
+		<javac srcdir="${source..}" destdir="${output..}" includeantruntime="no" debug="${java.debug}" source="${java.source.level}" target="${java.class.level}" >
+			<classpath refid="reference.lib" />
+		</javac>
+
+		<copy todir="${output..}">
+			<fileset dir="${source..}">
+				<include name="**/*"/>
+				<exclude name="**/.svn"/>
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="release" depends="compile">
+		<mkdir dir="${module.dist.dir}"/>
+
+		<jar destfile="${module.dist.dir}/lib/${module.name}.jar">
+            <manifest>
+            	 <attribute name="Build-Version" value="${module.version}"/>
+                 <attribute name="Build-Time" value="${build.time}" />
+                 <attribute name="Build-Machine" value="${env.COMPUTERNAME}" />
+            </manifest>			
+			<fileset dir="${output..}">
+			</fileset>
+		</jar>
+		
+		<copy todir="${module.dist.dir}">
+			<fileset dir="${basedir}">
+				<include name="bin/**"/>
+				<exclude name="**/.svn"/>
+			</fileset>
+		</copy>
+		
+		<copy todir="${module.dist.dir}/lib">
+			<fileset dir="${ivy.retrieve.lib.dir}/default">
+			</fileset>
+		</copy>
+	</target>	
+</project>
